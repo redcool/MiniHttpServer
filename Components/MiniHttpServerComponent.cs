@@ -59,6 +59,7 @@ namespace PowerUtilities.Net
         private void OnDestroy()
         {
             OnFileReceived = null;
+            httpServer?.StopListen();
         }
 
         private void FileReceived(string fileName,string fileType, string filePath, List<MiniHttpKeyValuePair> headers=null)
