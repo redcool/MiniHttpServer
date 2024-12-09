@@ -56,13 +56,20 @@ namespace PowerUtilities.Net
 
             if (isDontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
+
+            Debug.Log("mini http server : " + finalSaveFolder);
         }
         private void OnGUI()
         {
-            if (miniHttpIcon)
+            if (httpServer != null)
             {
-                var pos = new Rect(Screen.width - 16, 0, 16,16);
-                GUI.DrawTexture(pos, miniHttpIcon);
+
+                if (miniHttpIcon)
+                {
+                    var pos = new Rect(Screen.width - 160, 0, 16, 16);
+                    GUI.DrawTexture(pos, miniHttpIcon);
+                }
+
             }
         }
 

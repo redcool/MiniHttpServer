@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace PowerUtilities.Net
@@ -22,12 +23,11 @@ namespace PowerUtilities.Net
         {
             //var renderers = GameObject.FindObjectsByType<Renderer>(FindObjectsSortMode.None);
             var renderers = Resources.FindObjectsOfTypeAll<Renderer>();
-            for (int i = 0; i < renderers.Length; i++)
+            foreach (var shaderObj in shaderObjs)
             {
-                var renderer = renderers[i];
-
-                foreach (var shaderObj in shaderObjs)
+                for (int i = 0; i < renderers.Length; i++)
                 {
+                    var renderer = renderers[i];
                     //Debug.Log(renderer.sharedMaterial.shader?.name + " -> " + shaderObj.name);
                     if (renderer.sharedMaterial.shader?.name == shaderObj.name)
                     {
@@ -41,6 +41,12 @@ namespace PowerUtilities.Net
         {
             if (fileType == typeof(AssetBundle).Name)
             {
+                AsyncRead(filePath);
+                //SyncRead(filePath);
+            }
+
+            static void AsyncRead(string filePath)
+            {
                 var req = AssetBundle.LoadFromFileAsync(filePath);
                 req.completed += OnComplete;
 
@@ -49,12 +55,26 @@ namespace PowerUtilities.Net
                     req.completed -= OnComplete;
 
                     var ab = req.assetBundle;
-                    var shaderObjs = ab.LoadAllAssets<Shader>();
-                    ReplaceShaderExisted(shaderObjs);
-
-                    ab.Unload(false);
+                    ReadAssetBundle(ab, filePath);
                 };
+            }
 
+            static void ReadAssetBundle(AssetBundle ab,string filePath)
+            {
+                if (!ab)
+                {
+                    Debug.Log($"[{nameof(ShaderBundleReceiver)}] can't read from : {filePath}");
+                    return;
+                }
+                var shaderObjs = ab.LoadAllAssets<Shader>();
+                ReplaceShaderExisted(shaderObjs);
+                ab.Unload(false);
+            }
+
+            static void SyncRead(string filePath)
+            {
+                var ab = AssetBundle.LoadFromFile(filePath);
+                ReadAssetBundle(ab, filePath);
             }
         }
     }
