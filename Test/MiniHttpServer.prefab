@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3291831146277650237}
   - component: {fileID: 5788304132632171753}
+  - component: {fileID: 1390560054030339779}
   m_Layer: 0
   m_Name: MiniHttpServer
   m_TagString: Untagged
@@ -48,4 +49,23 @@ MonoBehaviour:
   resourceFolder: resourceFolder
   isShowDebugInfo: 0
   isDebugBuildOnly: 1
+  isDontDestroyOnLoad: 1
   finalSaveFolder: 
+  miniHttpIcon: {fileID: 2800000, guid: 3f791da5220931442ada4e3712d73425, type: 3}
+--- !u!114 &1390560054030339779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8770737051555381196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d720a652a2b71245aecc4aed8233d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: 
+  isShowDebugInfo: 0
+  fileType: 0
+  headerPairList: []
+  bundleAbsPath: 

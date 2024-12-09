@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor;
+using PowerUtilities;
 using UnityEngine;
 
 namespace PowerUtilities.Net
@@ -32,6 +32,8 @@ namespace PowerUtilities.Net
 
         [Header("Debug")]
         public string finalSaveFolder;
+        
+        public Texture2D miniHttpIcon;
         /// <summary>
         /// call ,when receive file
         /// 
@@ -54,6 +56,14 @@ namespace PowerUtilities.Net
 
             if (isDontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
+        }
+        private void OnGUI()
+        {
+            if (miniHttpIcon)
+            {
+                var pos = new Rect(Screen.width - 16, 0, 16,16);
+                GUI.DrawTexture(pos, miniHttpIcon);
+            }
         }
 
         private void OnDestroy()
