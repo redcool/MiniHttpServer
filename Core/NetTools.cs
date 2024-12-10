@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PowerUtilities
 {
-    public static class NetTools
+    public static partial class NetTools
     {
+        public static string GetHostName()
+        => NetworkInterface.GetIsNetworkAvailable() ? Dns.GetHostName() : "localhost";
+
         /// <summary>
         /// get current binds ip v4
         /// </summary>
         /// <returns></returns>
         public static string[] GetIPv4s()
         {
-            var ips = Dns.GetHostAddresses(Dns.GetHostName());
+            var ips = Dns.GetHostAddresses(GetHostName());
             return ips.Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .Select(ip => ip.ToString())
                 .ToArray();
@@ -33,6 +37,7 @@ namespace PowerUtilities
             {
                 listener.Prefixes.Add($"http://{ip}:{port}/");
             }
+            // add local
             listener.Prefixes.Add($"http://localhost:{port}/");
             listener.Prefixes.Add($"http://127.0.0.1:{port}/");
         }

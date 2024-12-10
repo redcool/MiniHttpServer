@@ -133,8 +133,11 @@ namespace PowerUtilities.Net
 
             string SaveReceivedBytes(HttpListenerRequest req, string fileName)
             {
-                var bytes = new byte[req.ContentLength64];
-                var readCount = req.InputStream.Read(bytes, 0, bytes.Length);
+                byte[] bytes;
+                //var readCount = req.InputStream.Read(bytes, 0, bytes.Length);
+                using(var br = new BinaryReader(req.InputStream)) {
+                    bytes = br.ReadBytes((int)req.ContentLength64);
+                }
 
                 //-------------- save file
                 string folder = GetFinalSaveFolder();
@@ -147,7 +150,6 @@ namespace PowerUtilities.Net
 
                 if (File.Exists(outputPath))
                     File.Delete(outputPath);
-
 
                 //File.WriteAllText($"{folder}/req.txt", Encoding.UTF8.GetString(bytes));
                 File.WriteAllBytes(outputPath, bytes);

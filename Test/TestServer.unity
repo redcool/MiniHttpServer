@@ -552,11 +552,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1390560054030339779, guid: 00218b43186301e4aa86078c47c40597, type: 3}
       propertyPath: bundleAbsPath
-      value: D:\Works\testPower2022\Bundles\fx\powervfx
+      value: D:\Works\testPower2022\Bundles\fx\powervfx.asset
       objectReference: {fileID: 0}
     - target: {fileID: 1390560054030339779, guid: 00218b43186301e4aa86078c47c40597, type: 3}
       propertyPath: isShowDebugInfo
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3291831146277650237, guid: 00218b43186301e4aa86078c47c40597, type: 3}
       propertyPath: m_LocalPosition.x
