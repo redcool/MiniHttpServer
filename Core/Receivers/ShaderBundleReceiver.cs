@@ -9,6 +9,8 @@ namespace PowerUtilities.Net
     /// </summary>
     public static class ShaderBundleReceiver
     {
+        static Dictionary<string, AssetBundle> bundleDict = new();
+
         [RuntimeInitializeOnLoadMethod]
         public static void Init()
         {
@@ -41,6 +43,8 @@ namespace PowerUtilities.Net
         {
             if (fileType == typeof(AssetBundle).Name)
             {
+                RemoveExistedBundle(filePath);
+
                 AsyncRead(filePath);
                 //SyncRead(filePath);
             }
@@ -53,7 +57,7 @@ namespace PowerUtilities.Net
                 void OnComplete(AsyncOperation op)
                 {
                     req.completed -= OnComplete;
-
+                    
                     var ab = req.assetBundle;
                     ReadAssetBundle(ab, filePath);
                 };
@@ -66,6 +70,9 @@ namespace PowerUtilities.Net
                     Debug.Log($"[{nameof(ShaderBundleReceiver)}] can't read from : {filePath}");
                     return;
                 }
+
+                bundleDict[filePath] = ab;
+
                 var shaderObjs = ab.LoadAllAssets<Shader>();
                 ReplaceShaderExisted(shaderObjs);
                 ab.Unload(false);
@@ -76,6 +83,13 @@ namespace PowerUtilities.Net
                 var ab = AssetBundle.LoadFromFile(filePath);
                 ReadAssetBundle(ab, filePath);
             }
+        }
+
+        private static void RemoveExistedBundle(string filePath)
+        {
+            bundleDict.Remove(filePath, out var ab);
+            if (ab)
+                ab.Unload(true);
         }
     }
 }
