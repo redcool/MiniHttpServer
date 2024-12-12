@@ -30,6 +30,10 @@ namespace PowerUtilities.Net
                 for (int i = 0; i < renderers.Length; i++)
                 {
                     var renderer = renderers[i];
+
+                    if (!renderer || !renderer.sharedMaterial || !renderer.sharedMaterial.shader)
+                        continue;
+
                     //Debug.Log(renderer.sharedMaterial.shader?.name + " -> " + shaderObj.name);
                     if (renderer.sharedMaterial.shader?.name == shaderObj.name)
                     {
