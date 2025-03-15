@@ -41,7 +41,7 @@ namespace PowerUtilities.Net
         /// </summary>
         public static event Action<string,string,string, List<MiniHttpKeyValuePair> > OnFileReceived;
 
-        private void Awake()
+        public void Awake()
         {
             if (isDebugBuildOnly && !Debug.isDebugBuild)
                 return;
