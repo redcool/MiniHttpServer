@@ -57,8 +57,9 @@ namespace PowerUtilities.Net
             if (isDontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
 
-            Debug.Log("mini http server : " + finalSaveFolder);
+            ShowInfo();
         }
+        public string ShowInfo() => $"mini http server : port {port} ,save folder: {finalSaveFolder}";
         private void OnGUI()
         {
             if (httpServer != null)
