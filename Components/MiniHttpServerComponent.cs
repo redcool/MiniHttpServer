@@ -135,6 +135,8 @@ namespace PowerUtilities.Net
             string SaveReceivedBytes(HttpListenerRequest req, string fileName)
             {
                 byte[] bytes;
+
+                // *** need read character not byte
                 //var readCount = req.InputStream.Read(bytes, 0, bytes.Length);
                 using(var br = new BinaryReader(req.InputStream)) {
                     bytes = br.ReadBytes((int)req.ContentLength64);
