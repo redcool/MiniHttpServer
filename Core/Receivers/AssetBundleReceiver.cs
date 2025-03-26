@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace PowerUtilities.Net
 {
     /// <summary>
-    /// Receive assetBundle,include shader,material
+    /// Receive assetBundle,include shader,material,gameObjects
     /// </summary>
     public static class AssetBundleReceiver
     {
@@ -69,6 +70,22 @@ namespace PowerUtilities.Net
 
                     var matObjs = ab.LoadAllAssets<Material>();
                     ReplaceMaterialExisted(matObjs, renderers);
+
+                    var gos = ab.LoadAllAssets<GameObject>();
+                    InstantiateGameObjects(gos);
+
+                }
+
+                static void InstantiateGameObjects(GameObject[] gos)
+                {
+                    if (gos != null)
+                    {
+                        foreach (var go in gos)
+                        {
+                            if (go)
+                                Object.Instantiate(go);
+                        }
+                    }
                 }
             }
 
