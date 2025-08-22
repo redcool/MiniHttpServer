@@ -1,6 +1,8 @@
 # MiniHttpServer
 HttpServer and Client, run in unity ,unity android ,...
 
+文档:https://ti4z0mosnbo.feishu.cn/wiki/HNFswBFhei2EAQkkswIcWa0bnjd
+
 Usage:
   1 Drag MiniHttpServer to Hierarchy,
   2 start Play(or deploy to device)
